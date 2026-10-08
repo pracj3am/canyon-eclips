@@ -245,6 +245,7 @@ plugging in USB. The decompiled app is not included in this repository.
 ## Files
 ```
 README.md               this file
+LICENSE                 MIT
 PROTOCOL.md             BLE protocol and decoded status fields
 requirements.txt        Python dependencies for the laptop scripts
 bike.py                 finds the unit (by name, or ECLIPS_ADDR)
@@ -260,3 +261,9 @@ ciq-field/              Edge data field: charging/draining watts
 ciq-common/             bridge protocol code shared by the two Edge projects
 ciq/                    failed direct-to-unit Connect IQ app (reference only)
 ```
+
+## License
+
+[MIT](LICENSE). The ESP32 firmware pulls in
+[esp-nimble-cpp](https://github.com/h2zero/esp-nimble-cpp) (Apache-2.0) via the
+ESP-IDF component manager; it is downloaded at build time, not included here.
