@@ -1,0 +1,19 @@
+menu "ECLIPS bridge"
+
+    config ECLIPS_BIKE_ADDR
+        string "Canyon unit Bluetooth address"
+        default ""
+        help
+            Static random address of your "Canyon Power Supply", e.g. d9:73:cf:12:34:56.
+            It is encoded in the ECLIPS QR code (Quick Start Guide / frame), and any
+            BLE scanner (nRF Connect, bluetoothctl) shows it.
+
+    config ECLIPS_BIKE_PASSKEY
+        int "Pairing PIN"
+        range 0 999999
+        default 0
+        help
+            Last 6 digits of the ECLIPS system serial number (Quick Start Guide /
+            frame). Leading zeros are dropped: 000123 -> 123.
+
+endmenu

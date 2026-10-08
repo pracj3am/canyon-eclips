@@ -1,0 +1,23 @@
+# Python
+.venv/
+__pycache__/
+
+# Local secrets: your unit's address and PIN (see sdkconfig.secrets.example)
+esp32-idf/sdkconfig.secrets
+
+# ESP-IDF build output and generated config
+esp32-idf/build/
+esp32-idf/managed_components/
+esp32-idf/sdkconfig
+esp32-idf/sdkconfig.old
+
+# Connect IQ build output
+ciq*/bin/
+
+# Not part of the repository: decompiled third-party app, SDKs/JRE, private keys
+apk/
+tools/
+*.pem
+*.der
+
+logs/

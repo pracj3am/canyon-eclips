@@ -1,0 +1,4 @@
+bleak        # BLE client (all laptop scripts)
+pexpect      # pair.py drives bluetoothctl
+cbor2        # scripts/smp_probe.py
+dbus-fast    # scripts/window_test.py (BlueZ agent)

@@ -1,0 +1,14 @@
+enum: group count      {'rc': 8}
+enum: group list       {'rc': 8}
+os: mcumgr params      {'buf_size': 2475, 'buf_count': 4}
+os: app info           {'rc': 8}
+os: bootloader info    {'bootloader': 'MCUboot'}
+os: datetime           {'rc': 8}
+os: task stats         {'rc': 8}
+os: mem pools          {'rc': 8}
+img: state             {'images': [{'slot': 0, 'version': '0.1.2', 'hash': b'\r\xaf<\x01\xae\xfe;\xd6t:\xb2>\x16Q_5\xdax\x9cRc\x13\x89l\x01\xebQ\x88cK\x808', 'bootable': True, 'pending': False, 'confirmed': True, 'active': True, 'permanent': False}, {'slot': 1, 'version': '0.1.1', 'hash': b"\x19\xf7\rw\xda-[\x14k\xaaKg\x96\xe0.\xa2#\xcc'k\x91\x98\xa8 S\x8aW\r?\x86\xd6;", 'bootable': True, 'pending': False, 'confirmed': False, 'active': False, 'permanent': False}], 'splitStatus': 0}
+stat: list             {'rc': 8}
+settings: read         {'rc': 8}
+fs: download           {'rc': 8}
+fs: status             {'rc': 8}
+zephyr basic           {'rc': 8}

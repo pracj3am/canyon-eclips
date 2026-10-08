@@ -1,0 +1,3 @@
+project.manifest = manifest.xml
+# BridgeBle.mc (bridge protocol) is shared with the data field in ../ciq-field
+base.sourcePath = source;../ciq-common
