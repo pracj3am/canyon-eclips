@@ -3,8 +3,7 @@
 Reverse-engineered Bluetooth control of the Canyon Grizl **ECLIPS** light and
 power unit, which advertises as **"Canyon Power Supply"**. The official Canyon
 app needs an internet connection. Everything here works fully offline: from a
-laptop, from an iPhone via Shortcuts, or from a **Garmin Edge** through a small
-ESP32-C6 bridge.
+laptop, or from a **Garmin Edge** through a small ESP32-C6 bridge.
 
 > **Unofficial.** Not affiliated with or endorsed by Canyon or Garmin. The
 > protocol was worked out for interoperability with hardware you own. Use at
@@ -23,7 +22,7 @@ Connect IQ 6.0), ESP32-C6-DevKitC, Linux with BlueZ.
 | Thing | Value |
 |---|---|
 | Device name | **Canyon Power Supply** |
-| Address | your unit's static random address (`D9:…`). It is in the ECLIPS QR code, and any BLE scanner shows it. iOS hides addresses |
+| Address | your unit's static random address (`D9:…`). It is in the ECLIPS QR code, and any BLE scanner shows it |
 | Pairing PIN | **last 6 digits of your ECLIPS serial number** (Quick Start Guide / frame) |
 | Service UUID | `6e400001-b5a3-f393-e0a9-e50e24dcca9e` (Nordic UART) |
 | **Write commands here** | `6e400002-b5a3-f393-e0a9-e50e24dcca9e` |
@@ -73,7 +72,7 @@ The scripts find the unit by name. If it is already connected (and therefore
 not advertising), set `ECLIPS_ADDR=<address>`.
 
 `pair.py` marks the unit *trusted*, which makes BlueZ auto-reconnect and hold
-the link. To let a phone or the bridge connect, free it:
+the link. To let another device (e.g. the bridge) connect, free it:
 ```sh
 bluetoothctl untrust <address>
 bluetoothctl disconnect <address>
@@ -81,49 +80,7 @@ bluetoothctl disconnect <address>
 
 ---
 
-## Option B: iPhone via Shortcuts (no extra hardware)
-
-iOS handles the PIN pairing itself (a system dialog asks for the PIN), which
-is the one thing Garmin Connect IQ cannot do.
-
-Bridge app: **Bluetooth Inspector** (App Store). It provides a Shortcuts
-**Write Value** action with a **Hex** option.
-
-1. Install Bluetooth Inspector. In its main scan screen, connect to
-   **Canyon Power Supply** and enter your PIN. (Do this first, or the
-   Shortcuts peripheral picker stays stuck on "loading".)
-2. Make sure nothing else holds the link (see `untrust`/`disconnect` above).
-
-### One shortcut with a menu ("ECLIPS Lights")
-1. *(optional)* Bluetooth Inspector **Connect** → *Canyon Power Supply* at the top.
-2. **Choose from Menu**, prompt `ECLIPS lights`, items below.
-3. Under each item, a **Write Value** action: peripheral *Canyon Power Supply*,
-   characteristic `6e400002-b5a3-f393-e0a9-e50e24dcca9e`, format **Hex**:
-
-| Menu item | Actions |
-|---|---|
-| Front on  | Write `03` |
-| Front off | Write `04` |
-| Rear on   | Write `05` |
-| Rear off  | Write `06` |
-| Both on   | Write `03` → Wait 0.3 s → Write `05` |
-| Both off  | Write `04` → Wait 0.3 s → Write `06` |
-| Status    | Write `0E` → read/subscribe `6e400003-…` → Show Result |
-
-Add the shortcut to the Home Screen, or say "Hey Siri, ECLIPS Lights".
-
-Tips:
-- If a write fails, add the **Connect** step at the top plus a 1–2 s Wait.
-- Keep the short Wait between the two writes in the "Both" branches; BLE writes
-  go one at a time.
-
-Simpler alternative: in the **LightBlue** app, connect with the PIN, then save
-named hex values (`03`/`04`/`05`/`06`/`0E`) on characteristic `…0002` and tap
-them.
-
----
-
-## Option C: Garmin Edge via an ESP32-C6 bridge
+## Option B: Garmin Edge via an ESP32-C6 bridge
 
 ```
 Canyon unit  <--BLE, PIN-->  ESP32-C6  <--BLE, no PIN-->  Edge (Connect IQ app + data field)
@@ -220,7 +177,7 @@ the Edge's `GARMIN/APPS/` folder over USB.
   Passkey Entry, so no Edge can pair with it from a Connect IQ app, not even
   the 540/840/1040/1050 that do support bonding. The Edge MTB has no bonding
   API at all (crash: "Symbol Not Found isBonded"). The non-working attempt is
-  kept in `ciq/` for reference. Option C solves this.
+  kept in `ciq/` for reference. Option B solves this.
 - **Transferring a laptop's bond into a Garmin.** Connect IQ has no way to
   import keys or set the Bluetooth address.
 - **Patching the unit's firmware.** The official app fetches the image from a
